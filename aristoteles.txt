@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream
 El pensamiento condiciona la acción
 la accion determina un comportamiento
 el comportamiento repetidas veces crea un hábito
 el hábito estructura el carácter
+=======
+El pensamiento condiciona la acción.
+la acción determina un comportamiento.
+>>>>>>> Stashed changes
+Aristóteles es un filósofo de la edad Antigüa
