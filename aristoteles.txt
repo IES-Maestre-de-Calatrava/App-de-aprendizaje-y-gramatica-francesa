@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 El pensamiento condiciona la acción
 la accion determina un comportamiento
 el comportamiento repetidas veces crea un hábito
 el hábito estructura el carácter
 el carácter marca el destino
 el destino marca gol
+=======
+El pensamiento condiciona la acción.
+La acción determina un comportamiento.
+El comportamiento repetidas veces crea un hábito.
+El hábito estructura el carácter.
+El carácter marca el destino
+>>>>>>> 5b92b97b5f5ee8e52d6dfe3320bde38ca9d9e092
