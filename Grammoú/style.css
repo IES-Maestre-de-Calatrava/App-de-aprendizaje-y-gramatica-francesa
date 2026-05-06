@@ -58,26 +58,63 @@ body {
     object-fit: contain;
 }
 
-.btn-french-blue {
+/* Estilos de botones estilo Uiverse */
+.btn-gradient-container {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(90deg, var(--french-blue), var(--french-white), var(--french-red));
+    border-radius: 0.9em;
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.btn-gradient-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 0.9em;
+    z-index: -10;
+    filter: blur(0);
+    transition: filter 0.4s ease;
+    background: linear-gradient(90deg, var(--french-blue), var(--french-white), var(--french-red));
+}
+
+.btn-gradient-container:hover::before {
+    filter: blur(1.2em);
+}
+
+.btn-gradient-container:active::before {
+    filter: blur(0.2em);
+}
+
+.custom-btn {
+    font-size: 1.2em;
+    padding: 0.6em 0.8em;
+    border-radius: 0.5em;
+    border: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #000000b4;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-prof-style {
     background-color: var(--french-blue);
-    color: var(--french-white);
-    border: none;
 }
 
-.btn-french-blue:hover {
+.btn-prof-style:hover {
     background-color: #003d82;
-    color: var(--french-white);
 }
 
-.btn-french-red {
+.btn-alum-style {
     background-color: var(--french-red);
-    color: var(--french-white);
-    border: none;
 }
 
-.btn-french-red:hover {
+.btn-alum-style:hover {
     background-color: #c62b21;
-    color: var(--french-white);
 }
 
 footer {
@@ -90,44 +127,4 @@ footer {
 .form-control:focus {
     border-color: var(--french-blue);
     box-shadow: 0 0 0 0.25rem rgba(0, 85, 164, 0.25);
-}
-
-/* From Uiverse.io by Spacious74 */
-button {
-    font-size: 1.4em;
-    padding: 0.6em 0.8em;
-    border-radius: 0.5em;
-    border: none;
-    background-color: #000;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 2px 2px 3px #000000b4;
-}
-
-.container {
-    position: relative;
-    padding: 3px;
-    background: linear-gradient(90deg, #03a9f4, #EF4135);
-    border-radius: 0.9em;
-    transition: all 0.4s ease;
-}
-
-.container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    border-radius: 0.9em;
-    z-index: -10;
-    filter: blur(0);
-    transition: filter 0.4s ease;
-}
-
-.container:hover::before {
-    background: linear-gradient(90deg, #03a9f4, #EF4135);
-    filter: blur(1.2em);
-}
-
-.container:active::before {
-    filter: blur(0.2em);
 }
