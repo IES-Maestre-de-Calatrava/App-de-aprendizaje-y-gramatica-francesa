@@ -4,6 +4,7 @@
 <head>
     <title>Grammoù</title>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="./Imagenes/Icono_APP.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -16,7 +17,7 @@
             <span class="h3 mb-0 fw-bold text-uclm">UCLM</span>
             <h1 class="h2 mb-0 fw-bold text-grammou">GRAMMOÚ</h1>
             <div>
-                <img src="/Imagenes/Logo-UCLM.webp" alt="Logo de la UCLM" class="logo-img">
+                <img src="./Imagenes/Icono_APP.webp" alt="Logo de la UCLM" class="logo-img">
             </div>
         </div>
     </header>
@@ -26,22 +27,20 @@
                 <div class="card card-prof p-4 h-100 text-center">
                     <div class="card-body d-flex flex-column align-items-center">
                         <i class="bi bi-person-circle mb-3" style="font-size: 5rem; color: var(--french-blue);"></i>
-                        <h2 class="h4 mb-4 fw-bold text-uclm">Profesor</h2>
+                        <h2 class="h4 mb-4 fw-bold text-uclm">Login</h2>
                         <form class="w-100 text-start">
                             <div class="mb-3">
                                 <label for="prof-usuario" class="form-label text-muted">Usuario / Correo</label>
-                                <input type="text" class="form-control" id="prof-usuario" placeholder="Usuario / Correo"
-                                    required>
+                                <input type="text" class="form-control" id="prof-usuario" placeholder="Adam10/@ejemplo.com" required>
                             </div>
 
                             <div class="mb-4">
                                 <label for="prof-pass" class="form-label text-muted">Contraseña</label>
-                                <input type="password" class="form-control" id="prof-pass" placeholder="Contraseña"
-                                    required>
+                                <input type="password" class="form-control" id="prof-pass" placeholder="minimo 8 caracteres" required>
                             </div>
 
                             <div class="btn-gradient-container mb-2">
-                                <button type="submit" class="custom-btn btn-prof-style">Entrar</button>
+                                <button type="submit" class="custom-btn btn-prof-style"><a href="Mapa.html">Acceder</a></button>
                             </div>
                         </form>
                     </div>
@@ -52,23 +51,20 @@
                 <div class="card card-alum p-4 h-100 text-center">
                     <div class="card-body d-flex flex-column align-items-center">
                         <i class="bi bi-person-circle mb-3" style="font-size: 5rem; color: var(--french-red);"></i>
-                        <h2 class="h4 mb-4 fw-bold text-danger" style="color: var(--french-red) !important;">Alumno</h2>
+                        <h2 class="h4 mb-4 fw-bold text-danger" style="color: var(--french-red) !important;">Register</h2>
 
                         <form class="w-100 text-start">
                             <div class="mb-3">
-                                <label for="alum-usuario" class="form-label text-muted">Usuario / Correo</label>
-                                <input type="text" class="form-control" id="alum-usuario" placeholder="Usuario / Correo"
-                                    required>
+                                <label for="alum-usuario" class="form-label text-muted">Correo</label>
+                                <input type="text" class="form-control" id="alum-usuario" placeholder="@ejemplo.com" required>
                             </div>
                             <div class="mb-4">
-                                <label for="alum-pass" class="form-label text-muted">Contraseña</label>
-                                <input type="password" class="form-control" id="alum-pass" placeholder="Contraseña"
-                                    required>
+                                <label for="alum-pass" class="form-label text-muted">Codigo</label>
+                                <input type="password" class="form-control" id="alum-pass" placeholder="123456" required>
                             </div>
 
                             <div class="btn-gradient-container mb-2">
-                                <button type="submit" class="custom-btn btn-alum-style"><a
-                                        href="Mapa.html">Entrar</a></button>
+                                <button type="submit" class="custom-btn btn-alum-style">Enviar</button>
                             </div>
                         </form>
                     </div>
@@ -77,8 +73,30 @@
         </div>
     </main>
 
-    <footer class="text-center py-3">
-        <p class="mb-0"> 2026 GRAMMOÚ - UCLM. Todos los derechos reservados.</p>
+    <footer class="footer-institucional py-4 mt-auto">
+        <div class="container">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start gap-4 mb-4 mb-md-0">
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Protección de datos</a>
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Aviso Legal</a>
+                    <a href="https://www.castillalamancha.es/declaraci%C3%B3n-de-accesibilidad" class="footer-link">Accesibilidad</a>
+                </div>
+
+                <div
+                    class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center gap-4">
+                    <div class="d-flex align-items-center gap-2 logo-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="Bandera Unión Europea" style="width: 50px;">
+                        <div class="text-start footer-txt-small">
+                            <strong class="d-block">UNIÓN EUROPEA</strong>
+                            <span>Fondo Europeo de Desarrollo Regional</span>
+                        </div>
+                    </div>
+                    <div class="logo-container">
+                        <img src="./Imagenes/logo-castilla-la-mancha.webp" alt="Castilla-La Mancha" style="height: 45px;">
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

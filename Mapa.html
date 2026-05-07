@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grammoù - Mapa de la Aventura</title>
+    <title>Grammoù - Mapa</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./Imagenes/Icono_APP.ico">
     <link rel="stylesheet" href="./Grammoú/style-mapa.css">
 </head>
 
 <body>
-
     <div class="slide-container" id="mapa-view">
         <header class="main-header">
             <div class="header-left">
@@ -22,7 +22,7 @@
                 <h1>GRAMMOÚ</h1>
             </div>
             <div class="header-right">
-                <img src="./Imagenes/Logo-UCLM.webp" alt="Logo de la UCLM" class="logo-img">
+                <img src="./Imagenes/Icono_APP.webp" alt="Logo" class="logo-img">
             </div>
         </header>
 
@@ -35,7 +35,6 @@
         </nav>
 
         <div class="content-area">
-
             <section class="ranking-section">
                 <h2>Ranking</h2>
                 <ul class="user-list">
@@ -45,21 +44,42 @@
                     <li>4. Adam <span class="pts">1,150 pts</span></li>
                     <li>5. Jamel <span class="pts">980 pts</span></li>
                 </ul>
-
             </section>
 
             <section class="map-section">
-                <h2>Mapa de habla francofona</h2>
-                <div class="map-frame">
-                    <img src="./Imagenes/MH.webp" alt="Mapa habla francofona">
+                <h2>Mapa de habla francófona</h2>
+                <div class="map-frame" id="map-container">
+                    <img src="./Imagenes/MH.webp" id="mapa-interactivo" alt="Mapa habla francófona">
                 </div>
             </section>
-
         </div>
 
-        <footer> 2026 GRAMMOÚ - UCLM. Todos los derechos reservados. </footer>
+        <footer class="footer-institucional">
+            <div class="footer-row">
+                <div class="footer-links">
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Protección de datos</a>
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Aviso Legal</a>
+                    <a href="https://www.castillalamancha.es/declaraci%C3%B3n-de-accesibilidad"
+                        class="footer-link">Accesibilidad</a>
+                </div>
+
+                <div class="footer-logos">
+                    <div class="logo-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="UE">
+                        <div class="footer-txt-small">
+                            <strong>UNIÓN EUROPEA</strong>
+                            <span>Fondo Europeo de Desarrollo Regional</span>
+                        </div>
+                    </div>
+                    <div class="logo-item">
+                        <img src="./Imagenes/logo-castilla-la-mancha.webp" alt="JCCM" class="img-jccm">
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 
+    <script src="./Grammoú/script.js"></script>
 </body>
 
 </html>
