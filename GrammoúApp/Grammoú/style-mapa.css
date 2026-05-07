@@ -35,7 +35,6 @@ body {
     border: var(--border-thin);
 }
 
-/* HEADER */
 header.main-header {
     width: 100%;
     background-color: var(--french-white);
@@ -177,7 +176,6 @@ nav.top-nav {
     transform: translate(-50%, -50%);
     z-index: 10;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .map-point:hover {
