@@ -3,8 +3,3 @@ La acción determina un comportamiento.
 El comportamiento repetidas veces crea un hábito.
 El hábito estructura el carácter.
 El carácter marca el destino
-<<<<<<< Updated upstream
-=======
-
-Aristóteles es un filósofo de la edad Antigüa.
->>>>>>> Stashed changes
