@@ -265,3 +265,30 @@ nav.top-nav {
     color: #475569;
     line-height: 1.2;
 }
+
+.btn-download-custom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-thin);
+    border-radius: 8px;
+    background-color: var(--french-white);
+    transition: all 0.2s ease;
+    padding: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.btn-download-custom:hover {
+    background-color: #f1f5f9;
+    transform: scale(1.08);
+    border-color: var(--french-blue);
+}
+
+.btn-download-custom img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
