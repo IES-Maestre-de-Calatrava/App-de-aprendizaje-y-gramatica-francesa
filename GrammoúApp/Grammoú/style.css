@@ -1,4 +1,3 @@
-
 :root {
     --french-blue: #0055A4;
     --french-red: #EF4135;
@@ -25,6 +24,10 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
     background-color: var(--french-white);
     transition: transform 0.25s ease, border-color 0.25s ease;
+    -webkit-transition: transform 0.25s ease, border-color 0.25s ease;
+    -moz-transition: transform 0.25s ease, border-color 0.25s ease;
+    -ms-transition: transform 0.25s ease, border-color 0.25s ease;
+    -o-transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .card:hover {
@@ -47,9 +50,11 @@ body {
 .btn-gradient-container {
     position: relative;
     padding: 3px;
-    background: linear-gradient(90deg, var(--french-blue), var(--french-white), var(--french-red));
+    background: linear-gradient(90deg, var(--french-blue), var(--french-red));
     border-radius: 0.9em;
     width: 100%;
+    transition: all 0.4s ease;
+    z-index: 1;
 }
 
 .custom-btn {
@@ -62,11 +67,18 @@ body {
     width: 100%;
     font-weight: bold;
     color: #fff;
+    background-color: #000; 
     transition: background-color 0.3s ease;
+    display: block;
 }
 
-.btn-prof-style { background-color: var(--french-blue); }
-.btn-prof-style:hover { background-color: #003d82; }
+.btn-prof-style { 
+    background-color: var(--french-blue); 
+}
+
+.btn-prof-style:hover { 
+    background-color: #003d82; 
+}
 
 .registration-link {
     border-top: 1px solid #eee;
@@ -104,3 +116,24 @@ body {
     font-size: 11px;
     line-height: 1.2;
 }
+
+.btn-gradient-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 0.9em;
+    z-index: -1; 
+    filter: blur(0);
+    transition: filter 0.4s ease, background 0.4s ease;
+}
+
+.btn-gradient-container:hover::before {
+    background: linear-gradient(90deg, var(--french-blue), var(--french-red));
+    filter: blur(1.2em);
+}
+
+.btn-gradient-container:active::before {
+    filter: blur(0.2em);
+}
+

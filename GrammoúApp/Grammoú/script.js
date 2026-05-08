@@ -16,7 +16,7 @@ const destinos = [
         ]
     },
     {
-        nombre: "Suiza", x: 64, y: 46,
+        nombre: "Suiza", x: 59, y: 50,
         ejercicios: [
             { nombre: "Ejercicio 1", url: "suiza1.html" },
             { nombre: "Ejercicio 2", url: "suiza2.html" },
@@ -32,7 +32,7 @@ const destinos = [
         ]
     },
     {
-        nombre: "Mónaco", x: 61, y: 70,
+        nombre: "Mónaco", x: 54, y: 80,
         ejercicios: [
             { nombre: "Ejercicio 1", url: "monaco1.html" },
             { nombre: "Ejercicio 2", url: "monaco2.html" },
