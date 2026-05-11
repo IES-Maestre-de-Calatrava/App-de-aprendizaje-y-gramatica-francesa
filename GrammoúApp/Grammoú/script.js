@@ -1,3 +1,10 @@
+const nombreGuardado = sessionStorage.getItem('usuario_nombre');
+const perfilGuardado = sessionStorage.getItem('usuario_perfil');
+
+/* Si no hay sesión o el perfil no es PROFESOR, volver al login */
+if (!nombreGuardado || perfilGuardado !== 'ALUMNO') {
+    window.location.href = './index.html';
+}
 const destinos = [
     {
         nombre: "Francia", x: 42, y: 50,

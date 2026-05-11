@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Grammoù – Panel Docente</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Grammoú/styles_docente.css">
+</head>
+
+<body>
+
+    <!-- ══════════════ HEADER ══════════════ -->
+    <header class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span class="h3 mb-0 fw-bold text-uclm">UCLM</span>
+            <h1 class="h2 mb-0 fw-bold text-grammou">GRAMMOÚ</h1>
+            <div class="logo-wrapper">
+                <img src="./Imagenes/logo-castilla-la-mancha.webp" alt="Logo de la UCLM" class="logo-img" style="height:45px; width:auto; max-width:120px; object-fit:contain; display:block;">
+            </div>
+        </div>
+    </header>
+
+    <!-- ══════════════ NAV DOCENTE ══════════════ -->
+    <nav class="bg-white border-bottom shadow-sm">
+        <div class="container py-2 d-flex flex-wrap align-items-center justify-content-between gap-2">
+
+            <ul class="nav nav-docente mb-0 flex-wrap align-items-center">
+
+                <!-- Subir ejercicio -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="docente.html">
+                        <i class="bi bi-cloud-upload"></i>Subir ejercicio
+                    </a>
+                </li>
+
+                <!-- Mis ejercicios -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#mis-ejercicios">
+                        <i class="bi bi-collection"></i>Mis ejercicios
+                        <span class="badge-blue ms-1" id="nav-count">0</span>
+                    </a>
+                </li>
+
+                <!-- ── Vista alumno con DESPLEGABLE ── -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#"
+                       id="dropdownAlumno" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-mortarboard"></i>Vista alumno
+                    </a>
+                    <ul class="dropdown-menu dropdown-docente" aria-labelledby="dropdownAlumno">
+                        <li>
+                            <a class="dropdown-item" href="log_alumno.html">
+                                <i class="bi bi-clock-history"></i>
+                                <span>
+                                    Log alumno
+                                    <small>Actividad y accesos recientes</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="puntuaciones.html">
+                                <i class="bi bi-bar-chart-line"></i>
+                                <span>
+                                    Puntuaciones
+                                    <small>Resultados por ejercicio</small>
+                                </span>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="perfil_alumno.html">
+                                <i class="bi bi-person-badge"></i>
+                                <span>
+                                    Perfil alumno
+                                    <small>Datos y progreso del alumno</small>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Perfil (nuevo) -->
+                <li class="nav-item">
+                    <a class="nav-link" href="perfil.html">
+                        <i class="bi bi-person-circle"></i>Perfil
+                    </a>
+                </li>
+
+                <!-- Contacto (nuevo) -->
+                <li class="nav-item">
+                    <a class="nav-link" href="contacto.html">
+                        <i class="bi bi-envelope"></i>Contacto
+                    </a>
+                </li>
+
+                <!-- Cerrar sesión -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-logout" href="index.html">
+                        <i class="bi bi-box-arrow-left"></i>Cerrar sesión
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Info usuario -->
+            <div class="d-flex align-items-center gap-2 text-muted usuario-info">
+                <i class="bi bi-person-circle fs-5 text-uclm"></i>
+                <span id="docente-nombre">docente-nombre</span>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- ══════════════ MAIN ══════════════ -->
+    <main class="container my-4 my-md-5">
+
+        <!-- Título de sección -->
+        <div class="mb-4">
+            <h2 class="page-title">Panel del Docente</h2>
+            <p class="page-subtitle">Gestiona y sube tus ejercicios de gramática francesa en formato H5P.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- ─── COLUMNA IZQUIERDA: FORMULARIO ─── -->
+            <div class="col-lg-5">
+                <div class="card card-upload p-4 h-100">
+                    <h3 class="h5 fw-bold mb-4 text-uclm">
+                        <i class="bi bi-plus-circle me-2"></i>Nuevo ejercicio
+                    </h3>
+
+                    <div id="upload-form">
+
+                        <!-- Zona Drag & Drop -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Archivo H5P <span class="text-danger">*</span>
+                            </label>
+                            <div class="dropzone" id="dropzone">
+                                <input type="file" id="h5p-file" accept=".h5p" aria-label="Seleccionar archivo H5P">
+                                <i class="bi bi-file-earmark-arrow-up"></i>
+                                <p>
+                                    <strong>Arrastra aquí</strong> tu archivo <code>.h5p</code><br>
+                                    o haz clic para seleccionarlo
+                                </p>
+                            </div>
+                            <div id="file-name-display">Ningún archivo seleccionado</div>
+                        </div>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">
+                                Nombre del ejercicio <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="nombre"
+                                placeholder="Ej: Les articles définis" maxlength="100" required>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" rows="3"
+                                placeholder="Breve descripción del ejercicio..." maxlength="300"></textarea>
+                            <div class="form-text text-end">
+                                <span id="char-count">0</span>/300
+                            </div>
+                        </div>
+
+                        <!-- Nivel -->
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Seleccionar Nivel <span class="text-danger">*</span>
+                            </label>
+                            <div class="nivel-group" id="nivel-group">
+                                <button type="button" class="nivel-btn" data-nivel="A1">A1</button>
+                                <button type="button" class="nivel-btn" data-nivel="A2">A2</button>
+                                <button type="button" class="nivel-btn" data-nivel="B1">B1</button>
+                                <button type="button" class="nivel-btn" data-nivel="B2">B2</button>
+                            </div>
+                            <input type="hidden" id="nivel-hidden">
+                        </div>
+
+                        <!-- Barra de progreso -->
+                        <div id="upload-progress-wrap">
+                            <div class="d-flex justify-content-between mb-1">
+                                <small class="text-muted">Subiendo…</small>
+                                <small id="progress-pct" class="text-muted">0%</small>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" id="progress-bar" role="progressbar"
+                                    style="width: 0%"
+                                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón subir -->
+                        <div class="btn-gradient-container mt-3">
+                            <button class="custom-btn btn-subir" id="btn-subir" type="button">
+                                <i class="bi bi-cloud-upload me-2"></i>Subir ejercicio
+                            </button>
+                        </div>
+
+                    </div><!-- /upload-form -->
+                </div>
+            </div>
+
+            <!-- ─── COLUMNA DERECHA: LISTA ─── -->
+            <div class="col-lg-7" id="mis-ejercicios">
+                <div class="card card-list p-4 h-100">
+
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h3 class="h5 fw-bold mb-0 text-red">
+                            <i class="bi bi-collection me-2"></i>Mis ejercicios
+                        </h3>
+                        <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"
+                            id="btn-refresh" title="Recargar lista">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <span class="d-none d-sm-inline">Actualizar</span>
+                        </button>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="d-flex gap-2 flex-wrap mb-3" id="filtros-nivel">
+                        <button class="nivel-btn selected" data-filter="all">Todos</button>
+                        <button class="nivel-btn" data-filter="A1">A1</button>
+                        <button class="nivel-btn" data-filter="A2">A2</button>
+                        <button class="nivel-btn" data-filter="B1">B1</button>
+                        <button class="nivel-btn" data-filter="B2">B2</button>
+                    </div>
+
+                    <!-- Estado: cargando -->
+                    <div id="loading-list">
+                        <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                        Cargando ejercicios…
+                    </div>
+
+                    <!-- Estado: lista -->
+                    <div id="ejercicios-list" class="d-flex flex-column gap-2"></div>
+
+                    <!-- Estado: vacío -->
+                    <div id="empty-state" class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <p>Aún no has subido ningún ejercicio.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- /row -->
+    </main>
+
+    <!-- ══════════════ ALERTAS FLOTANTES ══════════════ -->
+    <div id="alert-box" aria-live="polite"></div>
+
+    <!-- ══════════════ FOOTER ══════════════ -->
+     <footer class="footer-institucional py-4 mt-auto">
+        <div class="container">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start gap-4 mb-4 mb-md-0">
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Protección de datos</a>
+                    <a href="https://educacion.castillalamancha.es/" class="footer-link">Aviso Legal</a>
+                    <a href="https://www.castillalamancha.es/declaraci%C3%B3n-de-accesibilidad" class="footer-link">Accesibilidad</a>
+                </div>
+
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center gap-4">
+                    <div class="d-flex align-items-center gap-2 logo-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" alt="Bandera Unión Europea" style="width: 50px;">
+                        <div class="text-start footer-txt-small">
+                            <strong class="d-block">UNIÓN EUROPEA</strong>
+                            <span>Fondo Europeo de Desarrollo Regional</span>
+                        </div>
+                    </div>
+                    <div class="logo-container">
+                        <img src="./Imagenes/logo-castilla-la-mancha.webp" alt="Castilla-La Mancha" style="height: 45px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./Grammoú/script-docente.js"></script>
+
+</body>
+</html>
