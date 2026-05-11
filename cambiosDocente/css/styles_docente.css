@@ -1,0 +1,537 @@
+/* ============================================================
+   styles_docente.css  —  Panel Docente · GRAMMOÙ
+   ============================================================ */
+
+/* ─── VARIABLES ─── */
+:root {
+    --french-blue:  #0055A4;
+    --french-red:   #EF4135;
+    --french-white: #FFFFFF;
+    --bg-light:     #F4F6F9;
+    --text-muted:   #6c757d;
+    --card-radius:  15px;
+    --shadow:       0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ─── BASE ─── */
+body {
+    background-color: var(--bg-light);
+    color: #333333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main { flex: 1; }
+
+
+/* ─── HEADER ─── */
+.navbar {
+    background-color: var(--french-white) !important;
+    border-bottom: 4px solid var(--french-blue);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.text-uclm    { color: var(--french-blue); }
+.text-grammou { color: var(--french-red); letter-spacing: 1.5px; }
+.text-red     { color: var(--french-red) !important; }
+
+.logo-wrapper {
+    width: 120px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;       /* corta cualquier desbordamiento */
+    flex-shrink: 0;
+}
+
+.logo-img {
+    height: 45px;
+    max-height: 45px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* ─── NAV DOCENTE — links base ─── */
+.nav-docente .nav-link {
+    color: #555;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.nav-docente .nav-link i {
+    font-size: 1rem;
+}
+
+.nav-docente .nav-link:hover,
+.nav-docente .nav-link.active {
+    background-color: rgba(0, 85, 164, 0.1);
+    color: var(--french-blue);
+}
+
+/* Separador visual antes de "Cerrar sesión" */
+.nav-docente .nav-link-logout {
+    border-left: 1px solid #dee2e6;
+    margin-left: 4px;
+    padding-left: 12px;
+    color: var(--text-muted);
+}
+
+.nav-docente .nav-link-logout:hover {
+    background-color: rgba(239, 65, 53, 0.08);
+    color: var(--french-red);
+}
+
+/* Badge contador */
+.badge-blue {
+    background-color: var(--french-blue);
+    color: #fff;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 20px;
+    vertical-align: middle;
+    line-height: 1.4;
+}
+
+.usuario-info { font-size: 0.85rem; }
+
+
+/* ─── DROPDOWN "Vista alumno" ─── */
+
+/*
+   El dropdown-toggle hereda los estilos del nav-link,
+   pero añadimos la flechita de Bootstrap con un pequeño ajuste.
+*/
+.nav-docente .dropdown-toggle::after {
+    margin-left: 5px;
+    vertical-align: middle;
+    border-top-color: currentColor;
+}
+
+/*
+   Menú desplegable: sombra y borde superior azul
+   para mantener la coherencia con las cards de la página.
+*/
+.dropdown-docente {
+    min-width: 220px;
+    border: 1px solid #e9ecef;
+    border-top: 3px solid var(--french-blue);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 6px 0;
+    margin-top: 4px !important;
+}
+
+/*
+   Cada item del dropdown: icono + texto apilado (nombre + descripción).
+   Usamos flex para alinearlos horizontalmente.
+*/
+.dropdown-docente .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: #444;
+    transition: background-color 0.15s, color 0.15s;
+    border-radius: 0;
+}
+
+.dropdown-docente .dropdown-item:hover,
+.dropdown-docente .dropdown-item:focus {
+    background-color: rgba(0, 85, 164, 0.07);
+    color: var(--french-blue);
+}
+
+/* Icono del item: cuadrado azul claro */
+.dropdown-docente .dropdown-item i {
+    font-size: 1.2rem;
+    color: var(--french-blue);
+    width: 28px;
+    height: 28px;
+    background-color: rgba(0, 85, 164, 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.15s;
+}
+
+.dropdown-docente .dropdown-item:hover i {
+    background-color: rgba(0, 85, 164, 0.18);
+}
+
+/*
+   Bloque de texto del item:
+     <span> envuelve el nombre y el subtítulo.
+     <small> es la descripción en gris debajo del nombre.
+*/
+.dropdown-docente .dropdown-item span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    font-weight: 500;
+    font-size: 0.88rem;
+}
+
+.dropdown-docente .dropdown-item span small {
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 1px;
+}
+
+.dropdown-docente .dropdown-item:hover span small {
+    color: #7aa3d4;
+}
+
+/* Separador entre items */
+.dropdown-docente .dropdown-divider {
+    margin: 4px 12px;
+    border-color: #f0f0f0;
+}
+
+
+/* ─── TÍTULOS DE SECCIÓN ─── */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--french-blue);
+    border-left: 5px solid var(--french-red);
+    padding-left: 12px;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+    padding-left: 17px;
+}
+
+
+/* ─── CARDS ─── */
+.card {
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    background-color: var(--french-white);
+    transition: transform 0.25s ease;
+}
+
+.card-upload { border-top: 5px solid var(--french-blue); }
+.card-list   { border-top: 5px solid var(--french-red); }
+
+
+/* ─── ZONA DRAG & DROP ─── */
+.dropzone {
+    position: relative;
+    border: 2.5px dashed #b0bec5;
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: border-color 0.25s, background-color 0.25s;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+    border-color: var(--french-blue);
+    background-color: rgba(0, 85, 164, 0.04);
+}
+
+.dropzone i {
+    font-size: 2.8rem;
+    color: var(--french-blue);
+    opacity: 0.75;
+}
+
+.dropzone p {
+    margin: 0.6rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+#file-name-display {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--french-blue);
+    min-height: 1.2rem;
+    text-align: center;
+    margin-top: 6px;
+}
+
+
+/* ─── FORM ─── */
+.form-label {
+    font-weight: 600;
+    color: #444;
+    font-size: 0.88rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--french-blue);
+    box-shadow: 0 0 0 0.22rem rgba(0, 85, 164, 0.2);
+}
+
+
+/* ─── BOTONES DE NIVEL ─── */
+.nivel-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.nivel-btn {
+    border: 2px solid #dee2e6;
+    background: #fff;
+    color: #555;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.nivel-btn:hover {
+    border-color: var(--french-blue);
+    color: var(--french-blue);
+}
+
+.nivel-btn.selected {
+    background-color: var(--french-blue);
+    border-color: var(--french-blue);
+    color: #fff;
+}
+
+
+/* ─── BARRA DE PROGRESO ─── */
+#upload-progress-wrap {
+    display: none;
+    margin-top: 12px;
+}
+
+.progress {
+    border-radius: 8px;
+    height: 10px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--french-blue), var(--french-red));
+    transition: width 0.3s ease;
+}
+
+
+/* ─── BOTÓN SUBIR ─── */
+.btn-gradient-container {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(90deg, var(--french-blue), var(--french-white), var(--french-red));
+    border-radius: 0.9em;
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.btn-gradient-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 0.9em;
+    z-index: -10;
+    filter: blur(0);
+    transition: filter 0.4s ease;
+    background: linear-gradient(90deg, var(--french-blue), var(--french-white), var(--french-red));
+}
+
+.btn-gradient-container:hover::before { filter: blur(1.2em); }
+.btn-gradient-container:active::before { filter: blur(0.2em); }
+
+.custom-btn {
+    font-size: 1.1em;
+    padding: 0.6em 0.8em;
+    border-radius: 0.5em;
+    border: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #000000b4;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-subir       { background-color: var(--french-blue); }
+.btn-subir:hover { background-color: #003d82; }
+.btn-subir:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+
+/* ─── ITEMS DE LA LISTA ─── */
+.ejercicio-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    border: 1px solid #e9ecef;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.ejercicio-item:hover {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
+    transform: translateX(3px);
+}
+
+.ejercicio-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background-color: rgba(0, 85, 164, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ejercicio-icon i {
+    font-size: 1.3rem;
+    color: var(--french-blue);
+}
+
+.ejercicio-info { flex: 1; min-width: 0; }
+
+.ejercicio-info .name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ejercicio-info .meta {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.nivel-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.nivel-A1 { background-color: #d4edda; color: #155724; }
+.nivel-A2 { background-color: #cce5ff; color: #004085; }
+.nivel-B1 { background-color: #fff3cd; color: #856404; }
+.nivel-B2 { background-color: #f8d7da; color: #721c24; }
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px 6px;
+    border-radius: 5px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.btn-delete:hover {
+    color: var(--french-red);
+    background-color: rgba(239, 65, 53, 0.08);
+}
+
+
+/* ─── ESTADOS ─── */
+#loading-list {
+    text-align: center;
+    padding: 2rem 0;
+    color: #aaa;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: #aaa;
+    display: none;
+}
+
+.empty-state i { font-size: 3rem; opacity: 0.4; }
+.empty-state p { margin-top: 0.6rem; font-size: 0.88rem; }
+
+#ejercicios-list { display: none; }
+
+
+/* ─── ALERTAS FLOTANTES ─── */
+#alert-box {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.alert-custom {
+    border-radius: 10px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* ─── FOOTER ─── */
+footer {
+    background-color: var(--french-white) !important;
+    border-top: 1px solid #dee2e6;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 992px) {
+    /* En tablet el nav se reorganiza en dos líneas */
+    .nav-docente { gap: 2px; }
+    .nav-docente .nav-link { font-size: 0.83rem; padding: 0.35rem 0.6rem; }
+    .nav-docente .nav-link-logout { border-left: none; margin-left: 0; }
+}
+
+@media (max-width: 768px) {
+    .page-title     { font-size: 1.3rem; }
+    .ejercicio-item { flex-wrap: wrap; }
+
+    /* El dropdown se abre hacia abajo centrado en móvil */
+    .dropdown-docente {
+        min-width: 200px;
+    }
+}
