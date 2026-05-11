@@ -1,25 +1,21 @@
 /* ============================================================
    login.js — Grammoù
-   
+
    Gestiona el formulario de login:
-   1. Recoge email y contraseña del formulario
-   2. Envía los datos al servidor con fetch()
-   3. Según el perfil recibido, redirige a la página correcta
+   1. Recoge email y contraseña
+   2. Envía al servidor con fetch()
+   3. Guarda los datos en sessionStorage
+   4. Redirige según el perfil (PROFESOR o ALUMNO)
    ============================================================ */
 
-/* ── REFERENCIA AL FORMULARIO ─────────────────────────────────
-   Escuchamos el evento 'submit' del formulario para interceptar
-   el envío antes de que el navegador recargue la página
-──────────────────────────────────────────────────────────── */
 document.getElementById('form-login')
     .addEventListener('submit', async function(e) {
 
-    /* preventDefault() evita que el formulario recargue la página
-       de forma tradicional. Nosotros controlamos qué pasa */
+    /* Evita que el formulario recargue la página */
     e.preventDefault();
 
-    /* ── RECOGER DATOS DEL FORMULARIO ──────────────────────── */
-    const email     = document.getElementById('prof-usuario').value.trim();
+    /* ── RECOGER DATOS ──────────────────────────────────────── */
+    const email      = document.getElementById('prof-usuario').value.trim();
     const contrasena = document.getElementById('prof-pass').value.trim();
 
     /* Ocultar error previo si existía */
@@ -33,52 +29,59 @@ document.getElementById('form-login')
         return;
     }
 
-    /* ── ENVIAR AL SERVIDOR CON fetch() ────────────────────────
-    
-       A diferencia de la subida de archivos (que usaba FormData),
-       aquí enviamos JSON porque son solo dos campos de texto.
-       
-       JSON.stringify() convierte el objeto JavaScript a texto JSON:
-       { email: "a@b.com", contrasena: "1234" }
-       → '{"email":"a@b.com","contrasena":"1234"}'
-       
-       El servidor recibe ese JSON y lo convierte a LoginRequest.java
+    /* ── ENVIAR AL SERVIDOR ─────────────────────────────────────
+       Enviamos JSON con email y contraseña.
+       El servidor lo recibe en LoginRequest.java y busca
+       en la tabla USUARIO de MySQL.
     ──────────────────────────────────────────────────────────── */
     try {
 
         const respuesta = await fetch('http://localhost:8080/api/login', {
             method: 'POST',
             headers: {
-                /* Le decimos al servidor que enviamos JSON */
+                /* Indicamos que enviamos JSON */
                 'Content-Type': 'application/json'
             },
+            /* JSON.stringify convierte el objeto JS a texto JSON:
+               { email: "a@b.com", contrasena: "1234" }
+               → '{"email":"a@b.com","contrasena":"1234"}' */
             body: JSON.stringify({ email, contrasena })
         });
 
-        /* ── LEER LA RESPUESTA DEL SERVIDOR ─────────────────── */
         const datos = await respuesta.json();
 
         if (datos.success) {
 
             /* ── LOGIN CORRECTO ──────────────────────────────────
-            
-               Guardamos el nombre y el id en sessionStorage para
-               poder usarlos en docente.html y estudiante.html.
-               
-               sessionStorage → se borra al cerrar el navegador
-               localStorage   → persiste aunque se cierre (menos seguro)
+               Guardamos los datos en sessionStorage.
+               sessionStorage → se borra al cerrar el navegador.
+
+               Guardamos:
+                 usuario_nombre → para mostrar en el nav
+                 usuario_perfil → para proteger las páginas
+                 usuario_id     → ID_USUARIO de la tabla USUARIO
+                 profesor_id    → ID_PROFESOR de la tabla PROFESOR
+                                  (solo si el perfil es PROFESOR)
             ──────────────────────────────────────────────────── */
             sessionStorage.setItem('usuario_nombre', datos.nombre);
-            sessionStorage.setItem('usuario_id',     datos.id);
             sessionStorage.setItem('usuario_perfil', datos.perfil);
+            sessionStorage.setItem('usuario_id',     datos.idUsuario);
 
-            /* Redirigir según el perfil devuelto por el servidor */
+            /* Solo guardamos profesor_id si el servidor lo devuelve
+               Es decir, solo cuando el perfil es PROFESOR */
+            if (datos.idProfesor) {
+                sessionStorage.setItem('profesor_id', datos.idProfesor);
+            }
+
+            /* ── REDIRIGIR SEGÚN PERFIL ──────────────────────── */
             if (datos.perfil === 'PROFESOR') {
                 window.location.href = './docente.html';
+
             } else if (datos.perfil === 'ALUMNO') {
                 window.location.href = './estudiante.html';
+
             } else {
-                /* Perfil desconocido — mostrar error */
+                /* Perfil desconocido */
                 errorDiv.textContent = 'Perfil de usuario no reconocido.';
                 errorDiv.classList.remove('d-none');
             }
@@ -86,8 +89,8 @@ document.getElementById('form-login')
         } else {
 
             /* ── LOGIN INCORRECTO ────────────────────────────────
-               El servidor devolvió success: false
-               Mostramos el mensaje de error debajo del botón
+               El servidor devolvió success: false.
+               Mostramos el mensaje de error bajo el botón.
             ──────────────────────────────────────────────────── */
             errorDiv.textContent = datos.mensaje || 'Email o contraseña incorrectos.';
             errorDiv.classList.remove('d-none');
@@ -96,8 +99,8 @@ document.getElementById('form-login')
     } catch (error) {
 
         /* ── ERROR DE RED ────────────────────────────────────────
-           El servidor no está disponible o hay problema de conexión
-        ──────────────────────────────────────────────────── */
+           El servidor no está disponible.
+        ──────────────────────────────────────────────────────── */
         console.error('Error de conexión:', error);
         errorDiv.textContent = 'Error de conexión con el servidor.';
         errorDiv.classList.remove('d-none');

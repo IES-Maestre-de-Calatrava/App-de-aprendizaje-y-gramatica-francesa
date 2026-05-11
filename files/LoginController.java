@@ -14,19 +14,28 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class LoginController {
 
-    // Spring inyecta automáticamente el repositorio
+    // Spring inyecta automáticamente ambos repositorios
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    // Necesitamos ProfesorRepository para obtener el ID_PROFESOR real
+    // que puede ser distinto al ID_USUARIO
+    @Autowired
+    private ProfesorRepository profesorRepository;
 
     // ──────────────────────────────────────────────────────────────
     // POST /api/login
     //
-    // JavaScript lo llama cuando el usuario pulsa "Iniciar sesión"
+    // Recibe:  { "email": "...", "contrasena": "..." }
     //
-    // Recibe un JSON:  { "email": "...", "contrasena": "..." }
-    // Devuelve JSON:
-    //   Si OK:    { "success": true,  "perfil": "PROFESOR", "nombre": "Jean" }
-    //   Si error: { "success": false, "mensaje": "Credenciales incorrectas" }
+    // Devuelve si OK:
+    //   PROFESOR → { success: true, perfil: "PROFESOR",
+    //                nombre: "Carlos", idUsuario: 1, idProfesor: 1 }
+    //   ALUMNO   → { success: true, perfil: "ALUMNO",
+    //                nombre: "Ana", idUsuario: 2 }
+    //
+    // Devuelve si error:
+    //   { success: false, mensaje: "Email o contraseña incorrectos" }
     // ──────────────────────────────────────────────────────────────
     @PostMapping("/api/login")
     public ResponseEntity<Map<String, Object>> login(
@@ -34,8 +43,8 @@ public class LoginController {
 
         Map<String, Object> respuesta = new HashMap<>();
 
-        // Buscar en BD un usuario con ese email y contraseña
-        // Equivale a: SELECT * FROM USUARIO WHERE EMAIL = ? AND CONTRASENA = ?
+        // Buscar usuario por email y contraseña
+        // SELECT * FROM USUARIO WHERE EMAIL = ? AND CONTRASENA = ?
         Optional<Usuario> resultado = usuarioRepository
             .findByEmailAndContrasena(
                 request.getEmail(),
@@ -45,17 +54,36 @@ public class LoginController {
         if (resultado.isPresent()) {
 
             // ── USUARIO ENCONTRADO ────────────────────────────────
-            // Obtenemos el objeto Usuario con todos sus datos
             Usuario usuario = resultado.get();
 
-            // Devolvemos al JavaScript:
-            //   perfil  → "PROFESOR" o "ALUMNO" (para la redirección)
-            //   nombre  → para mostrar "Bienvenido, Jean" en la página
-            //   id      → por si se necesita en peticiones futuras
-            respuesta.put("success", true);
-            respuesta.put("perfil",  usuario.getPerfil());
-            respuesta.put("nombre",  usuario.getNombre());
-            respuesta.put("id",      usuario.getId());
+            // Datos comunes para cualquier perfil
+            respuesta.put("success",   true);
+            respuesta.put("perfil",    usuario.getPerfil());
+            respuesta.put("nombre",    usuario.getNombre());
+            respuesta.put("idUsuario", usuario.getId());
+
+            // Si es PROFESOR buscamos su ID_PROFESOR en la tabla PROFESOR
+            // porque puede ser distinto al ID_USUARIO
+            // SELECT * FROM PROFESOR WHERE ID_USUARIO = ?
+            if ("PROFESOR".equals(usuario.getPerfil())) {
+
+                Optional<Profesor> profesor = profesorRepository
+                    .findByIdUsuario(usuario.getId());
+
+                if (profesor.isPresent()) {
+                    // Añadimos el ID_PROFESOR real a la respuesta
+                    // login.js lo guardará en sessionStorage como 'profesor_id'
+                    // docente.js lo usará para las peticiones a la API
+                    respuesta.put("idProfesor", profesor.get().getId());
+                } else {
+                    // Usuario con perfil PROFESOR pero sin registro
+                    // en la tabla PROFESOR — error de datos
+                    respuesta.put("success", false);
+                    respuesta.put("mensaje", "Profesor no encontrado en el sistema");
+                    return ResponseEntity.status(404).body(respuesta);
+                }
+            }
+
             return ResponseEntity.ok(respuesta);
 
         } else {
@@ -65,7 +93,6 @@ public class LoginController {
             respuesta.put("success", false);
             respuesta.put("mensaje", "Email o contraseña incorrectos");
             return ResponseEntity.status(401).body(respuesta);
-            // 401 = Unauthorized (no autorizado)
         }
     }
 }
