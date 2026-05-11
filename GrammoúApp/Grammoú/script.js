@@ -5,6 +5,23 @@ const perfilGuardado = sessionStorage.getItem('usuario_perfil');
 if (!nombreGuardado || perfilGuardado !== 'ALUMNO') {
     window.location.href = './index.html';
 }
+
+/* ─────────────────────────────────────────
+   CONFIGURACIÓN
+
+   API_BASE   → URL del servidor Spring Boot
+   DOCENTE_ID → ID del docente logueado, viene del sessionStorage
+                que guardó login.js al iniciar sesión
+
+   ⚠️ Único cambio necesario cuando el servidor cambie de IP:
+      Sustituir 'http://localhost:8080/api' por la IP real
+───────────────────────────────────────── */
+const API_BASE   = 'http://localhost:8080/api';
+
+/* Coger el ID del usuario desde la sesión
+   en lugar de tenerlo hardcodeado como antes (const DOCENTE_ID = 1) */
+const DOCENTE_ID = sessionStorage.getItem('usuario_id');
+
 const destinos = [
     {
         nombre: "Francia", x: 42, y: 50,
