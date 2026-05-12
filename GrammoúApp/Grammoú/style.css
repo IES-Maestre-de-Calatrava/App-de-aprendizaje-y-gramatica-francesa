@@ -8,6 +8,8 @@ body {
     background-color: #F4F6F9;
     color: #333333;
     min-height: 100vh;
+    width: 100%;
+    margin: 0; 
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,6 +19,7 @@ body {
     background-color: var(--french-white) !important;
     border-bottom: 4px solid var(--french-blue);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: block;
 }
 
 .card {
@@ -35,14 +38,15 @@ body {
 }
 
 .card-prof {
-    border-top: 5px solid var(--french-blue);
+    border-top: 6px solid var(--french-blue) !important;
+    border-radius: 20px;
 }
 
 .text-uclm { color: var(--french-blue); }
 .text-grammou { color: var(--french-red); letter-spacing: 1.5px; }
 
 .logo-img {
-    height: 70px;
+    max-height: 45px;
     width: auto;
     object-fit: contain;
 }
@@ -137,3 +141,55 @@ body {
     filter: blur(0.2em);
 }
 
+@media (max-width: 576px) {
+    .text-uclm { font-size: 1.2rem; }
+    .text-grammou { font-size: 1.4rem; }
+    .logo-img { height: 35px; }
+}
+
+.btn-glow-button {
+    font-size: 1.2em;
+    padding: 0.6em 0.8em;
+    border-radius: 0.5em;
+    border: none;
+    background-color: var(--french-blue);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #000000b4;
+    width: 100%;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-glow-container {
+    position: relative;
+    padding: 3px;
+    /* Gradiente con tus colores institucionales */
+    background: linear-gradient(90deg, var(--french-blue), var(--french-red));
+    border-radius: 0.9em;
+    transition: all 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-glow-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    border-radius: 0.9em;
+    z-index: -1;
+    filter: blur(0);
+    transition: filter 0.4s ease;
+    background: linear-gradient(90deg, var(--french-blue), var(--french-red));
+}
+
+.btn-glow-container:hover::before {
+    filter: blur(1.2em);
+}
+
+.btn-glow-container:active::before {
+    filter: blur(0.2em);
+}
